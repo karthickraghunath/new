@@ -6,7 +6,6 @@ const BREAKPOINT = 768;
 const SCROLL_DURATION = 400;
 const SECTIONS = [
   { id: 'home', element: document.getElementById('home') },
-  { id: 'about', element: document.getElementById('about') },
   { id: 'flowers', element: document.getElementById('flowers') },
   { id: 'why-choose', element: document.getElementById('why-choose') },
   { id: 'export-info', element: document.getElementById('export-info') },
