@@ -925,60 +925,79 @@ section:not(.hero) {
     transform: none;
 }
 
-/* Why Choose Us Section */
-.why-choose {
-    padding: var(--spacing-2xl) var(--container-padding);
-    background-color: var(--color-bg-secondary);
+/* Why Partner With H.N Enterprises Section */
+.why-partner {
+    padding: 48px 32px;
+    background-color: #ffffff;
     max-width: 100%;
 }
 
-.why-choose h2 {
+.why-partner-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.why-partner-header {
     text-align: center;
-    font-size: 2.5rem;
-    color: var(--color-primary);
-    margin-bottom: var(--spacing-xl);
+    margin-bottom: 36px;
+}
+
+.why-partner-header h2 {
+    font-size: 2.2rem;
+    color: #142235;
+    margin-bottom: 8px;
     font-weight: 500;
     letter-spacing: 0.5px;
 }
 
-.why-choose-grid {
+.why-partner-subtitle {
+    font-size: 1rem;
+    color: #a68a5a;
+    font-weight: 400;
+}
+
+.why-partner-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: var(--spacing-xl);
-    max-width: var(--container-width);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
     margin: 0 auto;
 }
 
-.differentiator {
+.partner-value-card {
     text-align: center;
-    padding: var(--spacing-xl);
-    background-color: var(--color-bg-primary);
-    border-radius: 0;
-    box-shadow: 0 1px 3px rgba(26, 26, 26, 0.04);
+    padding: 30px 24px;
+    background-color: #ffffff;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(26, 26, 26, 0.06);
     transition: all var(--transition-normal);
-    border: 1px solid #d4cec4;
+    border: 1px solid #f0ebe5;
 }
 
-.differentiator:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(26, 26, 26, 0.08);
+.partner-value-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(26, 26, 26, 0.1);
 }
 
-.differentiator .icon {
-    font-size: 3.5rem;
+.partner-value-card .card-icon {
+    font-size: 40px;
     display: block;
-    margin-bottom: var(--spacing-md);
+    margin-bottom: 12px;
+    line-height: 1;
 }
 
-.differentiator h3 {
-    margin-bottom: var(--spacing-sm);
-    color: var(--color-primary);
-    font-size: 1.4rem;
+.partner-value-card h3 {
+    margin-bottom: 12px;
+    color: #142235;
+    font-size: 1.15rem;
+    font-weight: 500;
+    line-height: 1.3;
 }
 
-.differentiator p {
-    color: var(--color-text-secondary);
+.partner-value-card p {
+    color: #5a5a5a;
     margin-bottom: 0;
+    line-height: 1.5;
+    font-size: 0.9rem;
 }
 
 /* Export Info Section */
