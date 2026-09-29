@@ -127,36 +127,31 @@
 
     .flower-card {
         width: 100%;
-        max-width: 320px;
+        max-width: 100%;
         height: 100%;
     }
 
     .card-image-wrapper {
-        height: 220px;
+        height: 240px;
     }
 
     .card-content {
-        padding: 18px;
+        padding: 20px;
+    }
+
+    .product-category {
+        font-size: 0.75rem;
+        margin-bottom: 6px;
     }
 
     .product-name {
         font-size: 1.2rem;
-        margin-bottom: 10px;
-    }
-
-    .product-specs {
-        margin-bottom: 12px;
-        padding: 10px 0;
-    }
-
-    .spec-item {
-        font-size: 0.85rem;
-        margin-bottom: 6px;
+        margin-bottom: 14px;
     }
 
     .btn-request-quote {
         padding: 12px 20px;
-        font-size: 0.95rem;
+        font-size: 0.9rem;
     }
 
     .why-choose-grid {
@@ -358,31 +353,26 @@
     }
 
     .card-image-wrapper {
-        height: 240px;
+        height: 250px;
     }
 
     .card-content {
-        padding: 20px;
+        padding: 22px;
+    }
+
+    .product-category {
+        font-size: 0.8rem;
+        margin-bottom: 8px;
     }
 
     .product-name {
         font-size: 1.3rem;
-        margin-bottom: 12px;
-    }
-
-    .product-specs {
-        margin-bottom: 14px;
-        padding: 12px 0;
-    }
-
-    .spec-item {
-        font-size: 0.9rem;
-        margin-bottom: 7px;
+        margin-bottom: 16px;
     }
 
     .btn-request-quote {
         padding: 13px 22px;
-        font-size: 0.97rem;
+        font-size: 0.95rem;
     }
 
     /* Button consistency across tablet */
@@ -406,31 +396,26 @@
     }
 
     .card-image-wrapper {
-        height: 280px;
+        height: 260px;
     }
 
     .card-content {
         padding: 24px;
     }
 
-    .product-name {
-        font-size: 1.4rem;
-        margin-bottom: 14px;
-    }
-
-    .product-specs {
-        margin-bottom: 18px;
-        padding: 14px 0;
-    }
-
-    .spec-item {
-        font-size: 0.95rem;
+    .product-category {
+        font-size: 0.8rem;
         margin-bottom: 8px;
     }
 
+    .product-name {
+        font-size: 1.35rem;
+        margin-bottom: 20px;
+    }
+
     .btn-request-quote {
-        padding: 14px 24px;
-        font-size: 1rem;
+        padding: 13px 24px;
+        font-size: 0.95rem;
     }
 
     .why-choose-grid {
