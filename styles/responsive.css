@@ -1,0 +1,323 @@
+/* Responsive Media Queries for Mobile Devices */
+/*补充的移动设备媒体查询样式*/
+
+/* Mobile: < 768px */
+@media (max-width: 767.98px) {
+    /* Navigation Bar - Hamburger Menu */
+    .hamburger {
+        display: flex;
+    }
+
+    .hamburger.active span:first-child {
+        transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active span:last-child {
+        transform: rotate(-45deg) translate(8px, -8px);
+    }
+
+    .nav-wrapper {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background-color: #2a3544;
+        flex-direction: column;
+        padding: var(--spacing-lg);
+        gap: var(--spacing-md);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        transform: translateX(-100%);
+        transition: transform var(--transition-normal);
+        max-height: calc(100vh - 70px);
+        overflow-y: auto;
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .nav-wrapper.active {
+        transform: translateX(0);
+    }
+
+    .nav-links {
+        flex-direction: column;
+        width: 100%;
+        padding: 0;
+    }
+
+    .nav-links li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-links a {
+        display: block;
+        padding: var(--spacing-md);
+        width: 100%;
+        color: #e8e8e8;
+        border-bottom: 2px solid transparent;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+        color: #d4a574;
+        border-bottom: 2px solid #d4a574;
+        background-color: transparent;
+    }
+
+    /* Grid Column Adjustments - 1 column mobile */
+    .flower-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+
+    .flower-card {
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .why-choose-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: var(--spacing-lg);
+    }
+
+    .export-containers {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+    }
+
+    /* Touch Target Sizing for Mobile - Minimum 48px for accessibility */
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    h3 {
+        font-size: 1.125rem;
+    }
+
+    p {
+        font-size: 0.9375rem;
+    }
+
+    /* Touch Target Sizing for Mobile - Minimum 44px */
+    .btn {
+        padding: 12px 24px;
+        min-height: 44px;
+    }
+
+    .enquire-btn {
+        min-height: 44px;
+        padding: 12px 0;
+    }
+
+    .flower-card .enquire-btn {
+        bottom: 1rem;
+    }
+
+    .hamburger {
+        min-width: 44px;
+        min-height: 36px;
+        gap: 6px;
+    }
+
+    .hamburger span {
+        width: 28px;
+        height: 4px;
+        min-width: 28px;
+    }
+
+    .nav-links a {
+        min-height: 44px;
+        padding: 12px var(--spacing-md);
+    }
+
+    .brand a {
+        gap: var(--spacing-xs);
+    }
+
+    .brand-logo {
+        height: 40px;
+    }
+
+    .brand-wordmark {
+        height: 35px;
+    }
+
+    .flower-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+
+    .flower-card {
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .hero-content {
+        padding: 0 var(--spacing-md);
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .tagline {
+        font-size: 1rem;
+    }
+
+    .domain {
+        font-size: 1.25rem;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+    }
+
+    .cta-buttons .btn {
+        width: 100%;
+    }
+
+    /* Ensure all buttons have minimum height on mobile */
+    .btn,
+    .enquire-btn,
+    .flower-card .enquire-btn {
+        min-height: 48px;
+        padding: 14px 24px;
+    }
+
+    /* Hero section buttons */
+    .hero .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    /* Fix navigation active states */
+    .nav-links a.active,
+    .nav-links a:focus {
+        background-color: rgba(30, 87, 153, 0.15);
+        outline: 2px solid var(--color-primary);
+    }
+
+    /* Form buttons */
+    #enquiry-form button[type="submit"] {
+        width: 100%;
+        max-width: 400px;
+    }
+
+    #enquiry-form {
+        padding: var(--spacing-lg);
+        margin: 0 var(--spacing-md);
+    }
+
+    .enquiry-form h2 {
+        padding: 0 var(--spacing-md);
+    }
+}
+
+/* Tablet and Desktop - Hide hamburger, show nav-links */
+@media (min-width: 768px) {
+    .hamburger {
+        display: none !important;
+    }
+
+    .nav-wrapper {
+        position: static !important;
+        display: flex !important;
+        flex-direction: row !important;
+        padding: 0 !important;
+        gap: var(--spacing-md) !important;
+        background-color: transparent !important;
+        box-shadow: none !important;
+        transform: translateX(0) !important;
+        max-height: none !important;
+        overflow-y: visible !important;
+        justify-content: flex-end !important;
+    }
+
+    .nav-links {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: var(--spacing-lg) !important;
+        position: static !important;
+        width: auto !important;
+    }
+
+    .nav-links li {
+        width: auto;
+        text-align: left;
+    }
+
+    .nav-links a {
+        display: inline-block !important;
+        padding: var(--spacing-xs) var(--spacing-sm) !important;
+        width: auto;
+        opacity: 1 !important;
+        visibility: visible !important;
+        color: var(--color-text-primary) !important;
+    }
+}
+
+/* Tablet: 768px - 1023px */
+@media (min-width: 768px) and (max-width: 1023.98px) {
+    /* Grid Column Adjustments - 2 columns tablet */
+    .flower-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .flower-card {
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .why-choose-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .export-containers {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Button consistency across tablet */
+    .btn {
+        min-height: 48px;
+        padding: 14px 28px;
+    }
+}
+
+/* Desktop: ≥ 1024px - 4 columns */
+@media (min-width: 1024px) {
+    /* Grid Column Adjustments - 4 columns desktop */
+    .flower-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .flower-card {
+        width: var(--flower-card-width);
+        max-width: none;
+    }
+
+    .why-choose-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .export-containers {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Desktop button sizing */
+    .btn {
+        min-height: 52px;
+        padding: 16px 32px;
+    }
+
+    .flower-card .enquire-btn {
+        min-width: 220px;
+    }
+}

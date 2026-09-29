@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "name": "Create scripts directory",
+  "description": "Create scripts directory for JavaScript files",
+  "version": "1",
+  "when": {
+    "type": "userTriggered"
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "mkdir scripts"
+  }
+}

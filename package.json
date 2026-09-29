@@ -1,0 +1,17 @@
+{
+  "name": "hn",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest run",
+    "test:ui": "vitest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@testing-library/dom": "^10.4.2",
+    "vitest": "^4.1.11"
+  }
+}
