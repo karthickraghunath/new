@@ -126,9 +126,14 @@
         padding: 0 var(--spacing-md);
     }
 
+    /* Catalog container - mobile */
+    .flower-catalog-container {
+        padding: 50px 20px;
+    }
+
     /* Catalog header - mobile */
     .catalog-header {
-        padding: 0 var(--spacing-md);
+        padding: 0;
         margin-bottom: var(--spacing-xl);
     }
 
@@ -145,6 +150,12 @@
 
     .catalog-subtitle {
         font-size: 0.9rem;
+    }
+
+    /* Grid Column Adjustments - 1 column mobile */
+    .flower-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
     }
 
     .flower-card {
@@ -363,15 +374,14 @@
 
 /* Tablet: 768px - 1023px */
 @media (min-width: 768px) and (max-width: 1023.98px) {
-    /* Grid Column Adjustments - 2 columns tablet */
-    .flower-grid {
-        grid-template-columns: repeat(2, 1fr);
-        max-width: 1400px;
+    /* Catalog container - tablet */
+    .flower-catalog-container {
+        padding: 60px 30px;
     }
 
     /* Catalog header - tablet */
     .catalog-header {
-        padding: 0 var(--container-padding);
+        padding: 0;
         margin-bottom: var(--spacing-2xl);
     }
 
@@ -388,6 +398,12 @@
 
     .catalog-subtitle {
         font-size: 1rem;
+    }
+
+    /* Grid Column Adjustments - 2 columns tablet */
+    .flower-grid {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: none;
     }
 
     .flower-card {
@@ -428,16 +444,14 @@
 
 /* Desktop: ≥ 1024px - 4 columns */
 @media (min-width: 1024px) {
-    /* Grid Column Adjustments - 4 columns desktop */
-    .flower-grid {
-        grid-template-columns: repeat(4, 1fr);
-        max-width: 1400px;
-        gap: var(--spacing-xl);
+    /* Catalog container - desktop */
+    .flower-catalog-container {
+        padding: 70px 40px;
     }
 
     /* Catalog header - desktop */
     .catalog-header {
-        padding: 0 var(--container-padding);
+        padding: 0;
         margin-bottom: var(--spacing-2xl);
     }
 
@@ -454,6 +468,13 @@
 
     .catalog-subtitle {
         font-size: 1.1rem;
+    }
+
+    /* Grid Column Adjustments - 4 columns desktop */
+    .flower-grid {
+        grid-template-columns: repeat(4, 1fr);
+        max-width: none;
+        gap: var(--spacing-xl);
     }
 
     .flower-card {

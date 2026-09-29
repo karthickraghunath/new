@@ -608,18 +608,25 @@ section:not(.hero) {
 
 /* Flower Catalog Section */
 .flower-catalog {
-    padding: var(--spacing-2xl) 0;
+    width: 100%;
     background-color: #ffffff;
-    max-width: 100%;
+    padding: 0;
+    margin: 0;
     position: relative;
+}
+
+/* Inner Container - Centered Content */
+.flower-catalog-container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 70px 40px;
 }
 
 /* Catalog Header Container */
 .catalog-header {
-    max-width: 1400px;
-    margin: 0 auto var(--spacing-2xl);
-    padding: 0 var(--container-padding);
     text-align: center;
+    margin-bottom: var(--spacing-2xl);
 }
 
 .flower-catalog h2 {
@@ -660,9 +667,6 @@ section:not(.hero) {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: var(--spacing-xl);
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 var(--container-padding);
     position: relative;
     z-index: 2;
 }
