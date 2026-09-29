@@ -614,26 +614,53 @@ section:not(.hero) {
     position: relative;
 }
 
+/* Catalog Header Container */
+.catalog-header {
+    max-width: 1400px;
+    margin: 0 auto var(--spacing-2xl);
+    padding: 0 var(--container-padding);
+    text-align: center;
+}
+
 .flower-catalog h2 {
     text-align: center;
-    font-size: 2.5rem;
-    color: var(--color-primary);
-    margin-bottom: var(--spacing-xl);
-    max-width: var(--container-width);
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0 var(--container-padding);
-    font-weight: 500;
+    font-size: 2.75rem;
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    color: #1a2332;
+    margin-bottom: 8px;
+    font-weight: 600;
     letter-spacing: 0.5px;
     position: relative;
-    z-index: 2;
+    padding-bottom: 16px;
+}
+
+.flower-catalog h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, #d4a574 0%, #d4a574 100%);
+    border-radius: 2px;
+}
+
+.catalog-subtitle {
+    font-size: 1.1rem;
+    color: #d4a574;
+    font-weight: 500;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    margin: 0;
+    font-family: var(--font-family-body);
 }
 
 .flower-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: var(--spacing-xl);
-    max-width: var(--container-width);
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 var(--container-padding);
     position: relative;

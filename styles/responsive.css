@@ -123,6 +123,28 @@
     .flower-grid {
         grid-template-columns: 1fr;
         gap: var(--spacing-md);
+        padding: 0 var(--spacing-md);
+    }
+
+    /* Catalog header - mobile */
+    .catalog-header {
+        padding: 0 var(--spacing-md);
+        margin-bottom: var(--spacing-xl);
+    }
+
+    .flower-catalog h2 {
+        font-size: 1.8rem;
+        margin-bottom: 8px;
+        padding-bottom: 12px;
+    }
+
+    .flower-catalog h2::after {
+        width: 60px;
+        height: 2px;
+    }
+
+    .catalog-subtitle {
+        font-size: 0.9rem;
     }
 
     .flower-card {
@@ -344,6 +366,28 @@
     /* Grid Column Adjustments - 2 columns tablet */
     .flower-grid {
         grid-template-columns: repeat(2, 1fr);
+        max-width: 1400px;
+    }
+
+    /* Catalog header - tablet */
+    .catalog-header {
+        padding: 0 var(--container-padding);
+        margin-bottom: var(--spacing-2xl);
+    }
+
+    .flower-catalog h2 {
+        font-size: 2.3rem;
+        margin-bottom: 8px;
+        padding-bottom: 14px;
+    }
+
+    .flower-catalog h2::after {
+        width: 70px;
+        height: 2px;
+    }
+
+    .catalog-subtitle {
+        font-size: 1rem;
     }
 
     .flower-card {
@@ -387,6 +431,29 @@
     /* Grid Column Adjustments - 4 columns desktop */
     .flower-grid {
         grid-template-columns: repeat(4, 1fr);
+        max-width: 1400px;
+        gap: var(--spacing-xl);
+    }
+
+    /* Catalog header - desktop */
+    .catalog-header {
+        padding: 0 var(--container-padding);
+        margin-bottom: var(--spacing-2xl);
+    }
+
+    .flower-catalog h2 {
+        font-size: 2.75rem;
+        margin-bottom: 8px;
+        padding-bottom: 16px;
+    }
+
+    .flower-catalog h2::after {
+        width: 80px;
+        height: 3px;
+    }
+
+    .catalog-subtitle {
+        font-size: 1.1rem;
     }
 
     .flower-card {
