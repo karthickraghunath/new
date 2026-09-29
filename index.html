@@ -346,146 +346,157 @@
 
     <!-- Export Information Section -->
     <section id="export-info" class="export-info" aria-labelledby="export-heading">
-        <h2 id="export-heading">Export Information</h2>
-        
-        <div class="export-containers">
-            <div class="export-container domestic" aria-labelledby="domestic-heading">
-                <h3 id="domestic-heading">Domestic Shipping</h3>
-                <p>We provide reliable domestic shipping services across India, ensuring your flower orders reach destinations in perfect condition. Our domestic network covers major cities and towns with timely delivery schedules.</p>
-            </div>
-            
-            <div class="export-container international" aria-labelledby="international-heading">
-                <h3 id="international-heading">International Export</h3>
-                <p>Our international export services handle the complete logistics chain from India to overseas destinations. We specialize in perishable cargo handling and compliance with import regulations.</p>
-            </div>
-        </div>
-
-        <div class="process-steps">
-            <h3>Our Export Process</h3>
-            <ol>
-                <li>
-                    <span class="step-number">1</span>
-                    <span class="step-name">Enquiry</span>
-                    <span class="step-desc">Submit your flower requirements and specifications</span>
-                </li>
-                <li>
-                    <span class="step-number">2</span>
-                    <span class="step-name">Order Confirmation</span>
-                    <span class="step-desc">We confirm availability, pricing, and delivery timeline</span>
-                </li>
-                <li>
-                    <span class="step-number">3</span>
-                    <span class="step-name">Packaging</span>
-                    <span class="step-desc">Expert packaging using international standards for perishables</span>
-                </li>
-                <li>
-                    <span class="step-number">4</span>
-                    <span class="step-name">Dispatch</span>
-                    <span class="step-desc"> shipment tracking information</span>
-                </li>
-                <li>
-                    <span class="step-number">5</span>
-                    <span class="step-name">Delivery</span>
-                    <span class="step-desc">Delivery to your location with condition confirmation</span>
-                </li>
-            </ol>
-        </div>
-
-        <div class="certification-statement">
-            <p><strong>Compliance & Documentation:</strong> HN Enterprises prepares and handles all required phytosanitary certificates and export documentation on behalf of our buyers, ensuring smooth clearance at destination ports.</p>
-        </div>
-    </section>
-
-    <!-- Enquiry Form Section -->
-    <section id="contact" class="enquiry-form" aria-labelledby="form-heading">
-        <h2 id="form-heading">Send Your Enquiry</h2>
-        <form id="enquiry-form" novalidate>
-            <div class="form-group">
-                <label for="fullName">Full Name *</label>
-                <input type="text" id="fullName" name="fullName" required aria-required="true">
+        <div class="export-info-container">
+            <div class="export-info-header">
+                <h2 id="export-heading">Export Information</h2>
             </div>
 
-            <div class="form-group">
-                <label for="email">Email Address *</label>
-                <input type="email" id="email" name="email" required aria-required="true">
-            </div>
-
-            <div class="form-group">
-                <label for="phone">Phone Number *</label>
-                <input type="tel" id="phone" name="phone" required aria-required="true" pattern="[0-9]*" maxlength="15">
-            </div>
-
-            <div class="form-group">
-                <label for="country">Country *</label>
-                <input type="text" id="country" name="country" required aria-required="true">
-            </div>
-
-            <div class="form-group">
-                <label for="flowerVariety">Flower Variety *</label>
-                <select id="flowerVariety" name="flowerVariety" required aria-required="true">
-                    <option value="">Select a variety</option>
-                    <option value="5 Star Roses">5 Star Roses</option>
-                    <option value="Cocks Comb Flower">Cocks Comb Flower</option>
-                    <option value="Dahlia Flower">Dahlia Flower</option>
-                    <option value="Daisies">Daisies</option>
-                    <option value="Dracaena Leaf">Dracaena Leaf</option>
-                    <option value="Gerbera Flower">Gerbera Flower</option>
-                    <option value="Jasmine">Jasmine</option>
-                    <option value="Kanchan Flower">Kanchan Flower</option>
-                    <option value="Lilly Flower">Lilly Flower</option>
-                    <option value="MARIKOLUNTHU">MARIKOLUNTHU</option>
-                    <option value="Mirabel Rose">Mirabel Rose</option>
-                    <option value="Mukkutti Flower">Mukkutti Flower</option>
-                    <option value="Mullai">Mullai</option>
-                    <option value="Orchid Flower">Orchid Flower</option>
-                    <option value="Panneer Rose">Panneer Rose</option>
-                    <option value="Roses">Roses</option>
-                    <option value="Ruby">Ruby</option>
-                    <option value="Samanthi">Samanthi</option>
-                    <option value="Sampangi Flower">Sampangi Flower</option>
-                    <option value="Santini">Santini</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="enquiryType">Enquiry Type *</label>
-                <select id="enquiryType" name="enquiryType" required aria-required="true">
-                    <option value="">Select type</option>
-                    <option value="Domestic">Domestic</option>
-                    <option value="International">International</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="quantity">Quantity / Volume *</label>
-                <div class="quantity-input">
-                    <input type="number" id="quantity" name="quantity" min="1" required aria-required="true">
-                    <select id="quantityUnit" name="quantityUnit" required aria-required="true">
-                        <option value="stems">stems</option>
-                        <option value="kg">kg</option>
-                        <option value="bundles">bundles</option>
-                        <option value="boxes">boxes</option>
-                    </select>
+            <div class="export-process-wrapper">
+                <h3 class="process-subheading">Our Export Process</h3>
+                
+                <div class="process-timeline">
+                    <div class="process-step">
+                        <div class="step-circle">01</div>
+                        <h4 class="step-title">Enquiry</h4>
+                        <p class="step-description">Share your product requirements, specifications and destination details.</p>
+                    </div>
+                    
+                    <div class="timeline-connector"></div>
+                    
+                    <div class="process-step">
+                        <div class="step-circle">02</div>
+                        <h4 class="step-title">Order Confirmation</h4>
+                        <p class="step-description">We confirm product availability, pricing, specifications and delivery requirements.</p>
+                    </div>
+                    
+                    <div class="timeline-connector"></div>
+                    
+                    <div class="process-step">
+                        <div class="step-circle">03</div>
+                        <h4 class="step-title">Preparation & Packaging</h4>
+                        <p class="step-description">Products are prepared, packed and documented according to applicable export and destination requirements.</p>
+                    </div>
+                    
+                    <div class="timeline-connector"></div>
+                    
+                    <div class="process-step">
+                        <div class="step-circle">04</div>
+                        <h4 class="step-title">Dispatch & Documentation</h4>
+                        <p class="step-description">Shipment documentation is completed and the consignment is prepared for dispatch.</p>
+                    </div>
+                    
+                    <div class="timeline-connector"></div>
+                    
+                    <div class="process-step">
+                        <div class="step-circle">05</div>
+                        <h4 class="step-title">Global Delivery</h4>
+                        <p class="step-description">Coordinated logistics support the shipment through to the destination.</p>
+                    </div>
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="message">Message *</label>
-                <textarea id="message" name="message" rows="4" required aria-required="true"></textarea>
+            <div class="compliance-block">
+                <h3 class="compliance-heading">Destination-Specific Export Compliance</h3>
+                <p class="compliance-text">Export documentation, packaging, labeling and product requirements are aligned with applicable destination-country regulations and customer requirements.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Send Your Enquiry Section -->
+    <section id="contact" class="enquiry-section" aria-labelledby="enquiry-heading">
+        <div class="enquiry-container">
+            <div class="enquiry-header">
+                <h2 id="enquiry-heading">Send Your Enquiry</h2>
+                <p class="enquiry-subtitle">Tell us about your sourcing requirements</p>
             </div>
 
-            <button type="submit" class="btn btn-primary">Send Enquiry</button>
-            
-            <p class="email-fallback">
-                Or email us directly at: 
-                <a href="mailto:hn.enterpriseexport@gmail.com">hn.enterpriseexport@gmail.com</a>
-            </p>
+            <form id="enquiry-form" class="enquiry-form-simple" novalidate>
+                <div class="form-row two-col">
+                    <div class="form-group">
+                        <label for="fullName">Full Name *</label>
+                        <input type="text" id="fullName" name="fullName" placeholder="Your full name" required aria-required="true">
+                    </div>
+                    <div class="form-group">
+                        <label for="company">Company Name</label>
+                        <input type="text" id="company" name="company" placeholder="Your company name">
+                    </div>
+                </div>
 
-            <div class="form-messages" aria-live="polite">
-                <div class="success-message" id="successMessage"></div>
-                <div class="error-message" id="errorMessage"></div>
-            </div>
-        </form>
+                <div class="form-row two-col">
+                    <div class="form-group">
+                        <label for="email">Business Email *</label>
+                        <input type="email" id="email" name="email" placeholder="name@company.com" required aria-required="true">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone / WhatsApp *</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+91 XXXXX XXXXX" required aria-required="true">
+                    </div>
+                </div>
+
+                <div class="form-row full-width">
+                    <div class="form-group">
+                        <label for="destination">Export Destination *</label>
+                        <select id="destination" name="destination" required aria-required="true">
+                            <option value="">Select country</option>
+                            <option value="UAE">UAE</option>
+                            <option value="Saudi Arabia">Saudi Arabia</option>
+                            <option value="Qatar">Qatar</option>
+                            <option value="Oman">Oman</option>
+                            <option value="Kuwait">Kuwait</option>
+                            <option value="Bahrain">Bahrain</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="Europe">Europe</option>
+                            <option value="USA">USA</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row full-width">
+                    <div class="form-group">
+                        <label for="product">Product / Requirement *</label>
+                        <input type="text" id="product" name="product" placeholder="What product are you looking for?" required aria-required="true">
+                    </div>
+                </div>
+
+                <div class="form-row two-col">
+                    <div class="form-group">
+                        <label for="quantity">Estimated Quantity</label>
+                        <input type="text" id="quantity" name="quantity" placeholder="e.g. 500 stems, 100 kg, 1 MT">
+                    </div>
+                    <div class="form-group">
+                        <label for="unit">Unit</label>
+                        <select id="unit" name="unit">
+                            <option value="">Select unit</option>
+                            <option value="stems">Stems</option>
+                            <option value="kg">Kg</option>
+                            <option value="mt">MT</option>
+                            <option value="boxes">Boxes</option>
+                            <option value="cartons">Cartons</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row full-width">
+                    <div class="form-group">
+                        <label for="additional">Additional Requirements</label>
+                        <textarea id="additional" name="additional" rows="3" placeholder="Tell us about quality, packaging, specifications, delivery requirements or any other details."></textarea>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit-enquiry">Send Export Enquiry →</button>
+                </div>
+
+                <div class="form-messages" aria-live="polite">
+                    <div class="success-message" id="successMessage"></div>
+                    <div class="error-message" id="errorMessage"></div>
+                </div>
+            </form>
+
+            <p class="enquiry-note">Your enquiry will be reviewed by our export team and handled according to applicable destination-country requirements.</p>
+        </div>
     </section>
 
     <!-- Footer -->
