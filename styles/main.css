@@ -615,12 +615,13 @@ section:not(.hero) {
     position: relative;
 }
 
-/* Inner Container - Centered Content */
+/* Inner Container - Full Width with Minimal Padding */
 .flower-catalog-container {
     width: 100%;
-    max-width: 1700px;
-    margin: 0 auto;
-    padding: 70px 40px;
+    max-width: none;
+    margin: 0;
+    padding: 50px 32px;
+    box-sizing: border-box;
 }
 
 /* Catalog Header Container */
