@@ -3,6 +3,71 @@
 
 /* Mobile: < 768px */
 @media (max-width: 767.98px) {
+    /* Footer responsive - mobile */
+    .footer-main {
+        padding: 10px 5%;
+    }
+
+    .footer-columns {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-bottom: 8px;
+    }
+
+    .footer-column {
+        text-align: center;
+    }
+
+    .footer-column-title {
+        font-size: 0.7rem;
+        margin-bottom: 3px;
+    }
+
+    .footer-company-name {
+        font-size: 0.9rem;
+        margin-bottom: 2px;
+    }
+
+    .footer-label {
+        font-size: 0.7rem;
+        margin-bottom: 0;
+    }
+
+    .footer-label-sub {
+        font-size: 0.65rem;
+        margin-bottom: 0;
+    }
+
+    .footer-value {
+        font-size: 0.75rem;
+        margin-bottom: 0;
+    }
+
+    .footer-info-block {
+        margin-bottom: 0;
+    }
+
+    .footer-navigation {
+        padding: 6px 5% 0;
+    }
+
+    .footer-nav-links a {
+        padding: 0 4px;
+        font-size: 0.65rem;
+    }
+
+    .nav-divider {
+        margin: 0 -2px;
+    }
+
+    .footer-copyright {
+        padding: 4px 5% 6px;
+    }
+
+    .footer-copyright p {
+        font-size: 0.65rem;
+    }
+
     /* Hero section - full width mobile */
     .hero {
         width: 100%;
