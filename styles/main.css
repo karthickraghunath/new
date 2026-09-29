@@ -1161,7 +1161,7 @@ section:not(.hero) {
 }
 
 .enquiry-form-simple {
-    max-width: 900px;
+    max-width: 700px;
     margin: 0 auto 40px;
 }
 
@@ -1200,8 +1200,12 @@ section:not(.hero) {
 .form-group label[for="fullName"]::after,
 .form-group label[for="email"]::after,
 .form-group label[for="phone"]::after,
-.form-group label[for="destination"]::after,
-.form-group label[for="product"]::after {
+.form-group label[for="country"]::after,
+.form-group label[for="flowerVariety"]::after,
+.form-group label[for="enquiryType"]::after,
+.form-group label[for="quantity"]::after,
+.form-group label[for="quantityUnit"]::after,
+.form-group label[for="message"]::after {
     content: " *";
     color: #D6A24A;
 }
@@ -1254,26 +1258,38 @@ section:not(.hero) {
 }
 
 .btn-submit-enquiry {
-    background-color: #D6A24A;
-    color: #0B1F33;
-    border: none;
+    background-color: #D6A24A !important;
+    color: #071A2D !important;
+    border: 1px solid #D6A24A !important;
     padding: 13px 40px;
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 700 !important;
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.3s ease;
     letter-spacing: 0.3px;
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: inline-block !important;
 }
 
 .btn-submit-enquiry:hover {
-    background-color: #e8b66f;
+    background-color: #e8b66f !important;
+    color: #071A2D !important;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(214, 162, 74, 0.3);
 }
 
 .btn-submit-enquiry:active {
     transform: translateY(0);
+    color: #071A2D !important;
+}
+
+.btn-submit-enquiry:disabled {
+    background-color: #d4a24a !important;
+    color: #071A2D !important;
+    opacity: 0.8 !important;
+    cursor: not-allowed;
 }
 
 .form-messages {
