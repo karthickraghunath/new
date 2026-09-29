@@ -390,10 +390,22 @@ function init() {
   // Add field validation listeners
   addFieldListeners();
   
-  // Add event listeners to "Enquire Now" buttons
+  // Add event listeners to "Enquire Now" buttons (flower card buttons)
   const enquireButtons = document.querySelectorAll('.enquire-btn');
   enquireButtons.forEach(button => {
     button.addEventListener('click', () => {
+      const variety = button.dataset.variety;
+      if (variety) {
+        handleEnquireNow(variety);
+      }
+    });
+  });
+  
+  // Add event listeners to "Request Quote" buttons (new product card buttons)
+  const requestQuoteButtons = document.querySelectorAll('.btn-request-quote');
+  requestQuoteButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
       const variety = button.dataset.variety;
       if (variety) {
         handleEnquireNow(variety);

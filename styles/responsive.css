@@ -128,6 +128,35 @@
     .flower-card {
         width: 100%;
         max-width: 320px;
+        height: 100%;
+    }
+
+    .card-image-wrapper {
+        height: 220px;
+    }
+
+    .card-content {
+        padding: 18px;
+    }
+
+    .product-name {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+
+    .product-specs {
+        margin-bottom: 12px;
+        padding: 10px 0;
+    }
+
+    .spec-item {
+        font-size: 0.85rem;
+        margin-bottom: 6px;
+    }
+
+    .btn-request-quote {
+        padding: 12px 20px;
+        font-size: 0.95rem;
     }
 
     .why-choose-grid {
@@ -324,15 +353,36 @@
 
     .flower-card {
         width: 100%;
-        max-width: 400px;
+        max-width: none;
+        height: 100%;
     }
 
-    .why-choose-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .card-image-wrapper {
+        height: 240px;
     }
 
-    .export-containers {
-        grid-template-columns: repeat(2, 1fr);
+    .card-content {
+        padding: 20px;
+    }
+
+    .product-name {
+        font-size: 1.3rem;
+        margin-bottom: 12px;
+    }
+
+    .product-specs {
+        margin-bottom: 14px;
+        padding: 12px 0;
+    }
+
+    .spec-item {
+        font-size: 0.9rem;
+        margin-bottom: 7px;
+    }
+
+    .btn-request-quote {
+        padding: 13px 22px;
+        font-size: 0.97rem;
     }
 
     /* Button consistency across tablet */
@@ -350,8 +400,37 @@
     }
 
     .flower-card {
-        width: var(--flower-card-width);
+        width: auto;
         max-width: none;
+        height: 100%;
+    }
+
+    .card-image-wrapper {
+        height: 280px;
+    }
+
+    .card-content {
+        padding: 24px;
+    }
+
+    .product-name {
+        font-size: 1.4rem;
+        margin-bottom: 14px;
+    }
+
+    .product-specs {
+        margin-bottom: 18px;
+        padding: 14px 0;
+    }
+
+    .spec-item {
+        font-size: 0.95rem;
+        margin-bottom: 8px;
+    }
+
+    .btn-request-quote {
+        padding: 14px 24px;
+        font-size: 1rem;
     }
 
     .why-choose-grid {
