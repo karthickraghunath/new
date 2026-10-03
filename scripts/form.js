@@ -1,26 +1,9 @@
-// HN Enterprises Form Validation
-// Implements inline validation, email/phone format checks, 
-// form pre-population, and submission handling
+// HN Enterprises Form Submission & Validation
+// Complete flow: validation -> submission -> email -> response handling
 
-// Email regex pattern: local-part@domain.tld
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// Phone regex: digits only, minimum 7 digits
-const PHONE_REGEX = /^\d{7,}$/;
-
-// Required fields
-const REQUIRED_FIELDS = [
-  'fullName',
-  'email',
-  'phone',
-  'country',
-  'flowerVariety',
-  'enquiryType',
-  'quantity',
-  'message'
-];
-
-// Form elements
+// DOM Elements
 const form = document.getElementById('enquiry-form');
 const fullNameInput = document.getElementById('fullName');
 const emailInput = document.getElementById('email');
@@ -35,824 +18,271 @@ const successMessage = document.getElementById('successMessage');
 const errorMessage = document.getElementById('errorMessage');
 const otherFlowerRow = document.getElementById('otherFlowerRow');
 const otherFlowerType = document.getElementById('otherFlowerType');
+const submitBtn = form ? form.querySelector('.btn-submit-enquiry') : null;
 
-/**
- * Handle Flower Variety selection change
- * Show/hide "Enter Flower Type" field and update validation
- */
-function handleFlowerVarietyChange() {
-  const selectedValue = flowerVarietySelect.value;
-  
-  if (selectedValue === 'Other') {
-    // Show the other flower type field
-    otherFlowerRow.style.display = 'block';
-    otherFlowerType.required = true;
-    otherFlowerType.setAttribute('aria-required', 'true');
-  } else {
-    // Hide the other flower type field
-    otherFlowerRow.style.display = 'none';
-    otherFlowerType.required = false;
-    otherFlowerType.removeAttribute('aria-required');
-    otherFlowerType.value = '';
-    removeErrorMessage('otherFlowerType');
-  }
+// Validation Functions
+function isNotEmpty(value) {
+  return value && value.trim() !== '';
 }
 
-/**
- * Validate email format
- * @param {string} email - Email address to validate
- * @returns {boolean} - True if valid email format
- */
-function validateEmail(email) {
+function isValidEmail(email) {
   return EMAIL_REGEX.test(email);
 }
 
-/**
- * Validate phone number format
- * @param {string} phone - Phone number to validate
- * @returns {boolean} - True if valid phone format (digits only, min 7 digits)
- */
-function validatePhone(phone) {
-  return PHONE_REGEX.test(phone);
+function isValidPhone(phone) {
+  const digitsOnly = phone.replace(/\D/g, '');
+  return digitsOnly.length >= 7;
 }
 
-/**
- * Validate required field is not empty
- * @param {string} value - Field value to check
- * @returns {boolean} - True if value is not empty
- */
-function validateRequired(value) {
-  return value && value.trim() !== '' && value !== 'Select a variety' && value !== 'Select type';
+// Clear all errors
+function clearAllErrors() {
+  const errors = form.querySelectorAll('.inline-error');
+  errors.forEach(e => e.remove());
 }
 
-/**
- * Create inline error message element
- * @param {string} fieldName - Name of the field
- * @param {string} message - Error message text
- * @returns {HTMLElement} - Error message element
- */
-function createErrorMessage(fieldName, message) {
+// Show single field error
+function showFieldError(fieldName, message) {
+  const field = form.elements[fieldName];
+  if (!field) return;
+
+  // Remove existing error
+  clearFieldError(fieldName);
+
+  // Add new error
   const errorDiv = document.createElement('div');
   errorDiv.className = 'error-message inline-error';
-  errorDiv.setAttribute('role', 'alert');
-  errorDiv.dataset.field = fieldName;
+  errorDiv.setAttribute('data-field', fieldName);
   errorDiv.textContent = message;
-  return errorDiv;
+  field.parentNode.appendChild(errorDiv);
 }
 
-/**
- * Remove inline error message for a field
- * @param {string} fieldName - Name of the field
- */
-function removeErrorMessage(fieldName) {
-  const existingError = form.querySelector(`.inline-error[data-field="${fieldName}"]`);
-  if (existingError) {
-    existingError.remove();
+// Clear single field error
+function clearFieldError(fieldName) {
+  const existing = form.querySelector(`.inline-error[data-field="${fieldName}"]`);
+  if (existing) existing.remove();
+}
+
+// Show message below button
+function showMessage(type, text) {
+  if (type === 'success') {
+    successMessage.textContent = text;
+    successMessage.className = 'success-message visible';
+    errorMessage.textContent = '';
+    errorMessage.className = 'error-message';
+  } else if (type === 'error') {
+    errorMessage.textContent = text;
+    errorMessage.className = 'error-message visible';
+    successMessage.textContent = '';
+    successMessage.className = 'success-message';
   }
 }
 
-/**
- * Show inline error message for a field
- * @param {string} fieldName - Name of the field
- * @param {string} message - Error message text
- */
-function showInlineError(fieldName, message) {
-  // Remove existing error first
-  removeErrorMessage(fieldName);
-  
-  // Find the input/select element
-  const field = form.elements[fieldName] || form.querySelector(`[name="${fieldName}"]`);
-  if (field) {
-    const errorDiv = createErrorMessage(fieldName, message);
-    
-    // Insert error message after the field
-    field.parentNode.insertBefore(errorDiv, field.nextSibling);
-  }
+// Clear message
+function clearMessage() {
+  successMessage.textContent = '';
+  successMessage.className = 'success-message';
+  errorMessage.textContent = '';
+  errorMessage.className = 'error-message';
 }
 
-/**
- * Validate a single field
- * @param {HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement} field - Field to validate
- * @returns {boolean} - True if field is valid
- */
-function validateField(field) {
-  const fieldName = field.name;
-  const value = field.value.trim();
-  
-  removeErrorMessage(fieldName);
-  
-  switch (fieldName) {
-    case 'email':
-      if (!validateRequired(value)) {
-        showInlineError(fieldName, 'Email address is required');
-        return false;
-      }
-      if (!validateEmail(value)) {
-        showInlineError(fieldName, 'Please enter a valid email address (e.g., name@example.com)');
-        return false;
-      }
-      break;
-      
-    case 'phone':
-      if (!validateRequired(value)) {
-        showInlineError(fieldName, 'Phone number is required');
-        return false;
-      }
-      if (!validatePhone(value)) {
-        showInlineError(fieldName, 'Phone must be digits only, minimum 7 digits');
-        return false;
-      }
-      break;
-      
-    case 'flowerVariety':
-      if (!validateRequired(value)) {
-        showInlineError(fieldName, 'Please select a flower variety');
-        return false;
-      }
-      break;
-      
-    case 'enquiryType':
-      if (!validateRequired(value)) {
-        showInlineError(fieldName, 'Please select an enquiry type');
-        return false;
-      }
-      break;
-      
-    case 'quantity':
-      if (!validateRequired(value)) {
-        showInlineError(fieldName, 'Quantity is required');
-        return false;
-      }
-      if (parseInt(value) < 1) {
-        showInlineError(fieldName, 'Quantity must be at least 1');
-        return false;
-      }
-      break;
-
-    case 'otherFlowerType':
-      if (flowerVarietySelect.value === 'Other' && !validateRequired(value)) {
-        showInlineError(fieldName, 'Please enter the flower type');
-        return false;
-      }
-      break;
-      
-    case 'fullName':
-    case 'country':
-    case 'message':
-      if (!validateRequired(value)) {
-        showInlineError(fieldName, `${field.previousElementSibling.textContent.replace(' *', '')} is required`);
-        return false;
-      }
-      break;
-      
-    default:
-      if (!validateRequired(value)) {
-        showInlineError(fieldName, 'This field is required');
-        return false;
-      }
-      break;
-  }
-  
-  return true;
-}
-
-/**
- * Validate all form fields
- * @returns {boolean} - True if all fields are valid
- */
+// Validate entire form
 function validateForm() {
+  clearAllErrors();
   let isValid = true;
-  
-  // Validate each required field
-  for (const fieldName of REQUIRED_FIELDS) {
-    const field = form.elements[fieldName];
-    if (field) {
-      if (!validateField(field)) {
-        isValid = false;
-      }
-    }
-  }
-  
-  // Validate quantityUnit (hidden requirement from form structure)
-  const quantityUnitValue = quantityUnitSelect.value;
-  if (!quantityUnitValue) {
-    showInlineError('quantityUnit', 'Please select a unit');
+
+  // 1. Full Name
+  if (!isNotEmpty(fullNameInput.value)) {
+    showFieldError('fullName', 'Full Name is required');
     isValid = false;
-  } else {
-    removeErrorMessage('quantityUnit');
   }
 
-  // Validate otherFlowerType if Other is selected
+  // 2. Email
+  if (!isNotEmpty(emailInput.value)) {
+    showFieldError('email', 'Email Address is required');
+    isValid = false;
+  } else if (!isValidEmail(emailInput.value)) {
+    showFieldError('email', 'Please enter a valid email address');
+    isValid = false;
+  }
+
+  // 3. Phone
+  if (!isNotEmpty(phoneInput.value)) {
+    showFieldError('phone', 'Phone Number is required');
+    isValid = false;
+  } else if (!isValidPhone(phoneInput.value)) {
+    showFieldError('phone', 'Phone must have at least 7 digits');
+    isValid = false;
+  }
+
+  // 4. Country
+  if (!isNotEmpty(countryInput.value)) {
+    showFieldError('country', 'Country is required');
+    isValid = false;
+  }
+
+  // 5. Flower Variety
+  if (!isNotEmpty(flowerVarietySelect.value)) {
+    showFieldError('flowerVariety', 'Flower Variety is required');
+    isValid = false;
+  }
+
+  // 6. Other Flower Type (if Other selected)
   if (flowerVarietySelect.value === 'Other') {
-    if (!validateField(otherFlowerType)) {
+    if (!isNotEmpty(otherFlowerType.value)) {
+      showFieldError('otherFlowerType', 'Enter Flower Type is required');
       isValid = false;
     }
   }
-  
+
+  // 7. Enquiry Type
+  if (!isNotEmpty(enquiryTypeSelect.value)) {
+    showFieldError('enquiryType', 'Enquiry Type is required');
+    isValid = false;
+  }
+
+  // 8. Quantity
+  if (!isNotEmpty(quantityInput.value)) {
+    showFieldError('quantity', 'Quantity is required');
+    isValid = false;
+  } else if (parseInt(quantityInput.value, 10) < 1) {
+    showFieldError('quantity', 'Quantity must be a positive number');
+    isValid = false;
+  }
+
+  // 9. Unit
+  if (!isNotEmpty(quantityUnitSelect.value)) {
+    showFieldError('quantityUnit', 'Unit is required');
+    isValid = false;
+  }
+
+  // 10. Message
+  if (!isNotEmpty(messageTextarea.value)) {
+    showFieldError('message', 'Message is required');
+    isValid = false;
+  }
+
   return isValid;
 }
 
-/**
- * Clear all inline error messages
- */
-function clearAllErrors() {
-  const errorMessages = form.querySelectorAll('.inline-error');
-  errorMessages.forEach(msg => msg.remove());
-}
-
-/**
- * Clear form fields
- */
-function clearForm() {
-  fullNameInput.value = '';
-  emailInput.value = '';
-  phoneInput.value = '';
-  countryInput.value = '';
-  flowerVarietySelect.value = '';
-  enquiryTypeSelect.value = '';
-  quantityInput.value = '';
-  quantityUnitSelect.value = '';
-  messageTextarea.value = '';
-  otherFlowerType.value = '';
-  
-  otherFlowerRow.style.display = 'none';
-  
+// Reset form
+function resetForm() {
+  form.reset();
   clearAllErrors();
+  otherFlowerRow.style.display = 'none';
+  clearMessage();
 }
 
-/**
- * Show success message
- * @param {string} message - Success message text
- */
-function showSuccess(message) {
-  successMessage.textContent = message;
-  successMessage.className = 'success-message';
-  errorMessage.textContent = '';
-  errorMessage.className = 'error-message';
-}
-
-/**
- * Show error message
- * @param {string} message - Error message text
- */
-function showError(message) {
-  errorMessage.textContent = message;
-  errorMessage.className = 'error-message';
-  successMessage.textContent = '';
-  successMessage.className = 'success-message';
-}
-
-/**
- * Pre-populate flower variety field
- * @param {string} variety - Flower variety name to pre-populate
- */
-function prepopulateFlowerVariety(variety) {
-  flowerVarietySelect.value = variety;
-  handleFlowerVarietyChange();
-}
-
-/**
- * Pre-populate message field with flower variety
- * @param {string} variety - Flower variety name to add to message
- */
-function prepopulateMessage(variety) {
-  if (messageTextarea.value === '') {
-    messageTextarea.value = `I would like to enquire about: ${variety}\n\n`;
-  } else if (!messageTextarea.value.includes(variety)) {
-    messageTextarea.value = `I would like to enquire about: ${variety}\n\n${messageTextarea.value}`;
+// Handle flower variety change
+function handleFlowerVarietyChange() {
+  if (flowerVarietySelect.value === 'Other') {
+    otherFlowerRow.style.display = 'block';
+    otherFlowerType.required = true;
+  } else {
+    otherFlowerRow.style.display = 'none';
+    otherFlowerType.required = false;
+    otherFlowerType.value = '';
   }
 }
 
-/**
- * Handle "Enquire Now" button click
- * @param {string} variety - Flower variety name
- */
-function handleEnquireNow(variety) {
-  prepopulateFlowerVariety(variety);
-  prepopulateMessage(variety);
-  
-  // Scroll to form
-  const formSection = document.getElementById('contact');
-  if (formSection) {
-    formSection.scrollIntoView({ behavior: 'smooth' });
-  }
-}
-
-/**
- * Handle form submission
- * @param {Event} event - Submit event
- */
-function handleSubmit(event) {
+// Main submit handler
+async function handleSubmit(event) {
   event.preventDefault();
-  
+
   // Clear previous messages
-  successMessage.textContent = '';
-  errorMessage.textContent = '';
-  successMessage.className = 'success-message';
-  errorMessage.className = 'error-message';
-  
-  // Validate form
+  clearMessage();
+
+  // STEP 1: Validate
   if (!validateForm()) {
+    showMessage('error', 'Please fill in all required details before submitting your enquiry.');
     return;
   }
-  
-  // Build flower variety string
+
+  // STEP 2: Disable button and show sending state
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Sending...';
+
+  // STEP 3: Prepare data
   let flowerVarietyStr = flowerVarietySelect.value;
   if (flowerVarietyStr === 'Other' && otherFlowerType.value) {
     flowerVarietyStr = `Other: ${otherFlowerType.value}`;
   }
-  
-  // Compose email
-  const to = 'hn.enterpriseexport@gmail.com';
-  const subject = encodeURIComponent('Flower Enquiry from HN Enterprises Website');
-  const body = encodeURIComponent(
-    `Name: ${fullNameInput.value}\n` +
-    `Email: ${emailInput.value}\n` +
-    `Phone: ${phoneInput.value}\n` +
-    `Country: ${countryInput.value}\n` +
-    `Flower Variety: ${flowerVarietyStr}\n` +
-    `Enquiry Type: ${enquiryTypeSelect.value}\n` +
-    `Quantity: ${quantityInput.value} ${quantityUnitSelect.value}\n` +
-    `Message: ${messageTextarea.value}`
-  );
-  
-  // Compose mailto link
-  const mailtoLink = `mailto:${to}?subject=${subject}&body=${body}`;
-  
+
+  const formDataObj = {
+    fullName: fullNameInput.value,
+    email: emailInput.value,
+    phone: phoneInput.value,
+    country: countryInput.value,
+    flowerVariety: flowerVarietyStr,
+    enquiryType: enquiryTypeSelect.value,
+    quantity: quantityInput.value,
+    quantityUnit: quantityUnitSelect.value,
+    message: messageTextarea.value
+  };
+
   try {
-    // Attempt to open email client
-    window.location.href = mailtoLink;
-    
-    // Show success message
-    showSuccess('Thank you! Your enquiry has been sent. We will respond shortly.');
-    
-    // Clear form after successful submission
-    clearForm();
-    
-    // Note: If email client fails to open, the user will see the error
-    // The mailto protocol doesn't provide a reliable way to detect failure
-  } catch (e) {
-    // Fallback error handling
-    showError('There was an error sending your enquiry. Please contact us directly at hn.enterpriseexport@gmail.com');
-    console.error('Email submission error:', e);
-  }
-}
-
-/**
- * Add event listeners for field validation
- */
-function addFieldListeners() {
-  // Validate on blur (when field loses focus)
-  [
-    fullNameInput, emailInput, phoneInput, countryInput,
-    flowerVarietySelect, enquiryTypeSelect, quantityInput, messageTextarea, otherFlowerType
-  ].forEach(field => {
-    field.addEventListener('blur', () => validateField(field));
-  });
-  
-  // Clear error messages on input
-  [
-    fullNameInput, emailInput, phoneInput, countryInput,
-    messageTextarea, otherFlowerType
-  ].forEach(field => {
-    field.addEventListener('input', () => {
-      removeErrorMessage(field.name);
+    // STEP 4: Submit to backend
+    const response = await fetch('send-email.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formDataObj)
     });
-  });
-  
-  // Clear error messages on selection change
-  [flowerVarietySelect, enquiryTypeSelect, quantityUnitSelect].forEach(select => {
-    select.addEventListener('change', () => {
-      removeErrorMessage(select.name);
-    });
-  });
 
-  // Handle Flower Variety change
-  flowerVarietySelect.addEventListener('change', handleFlowerVarietyChange);
-}
+    const data = await response.json();
 
-/**
- * Initialize form validation
- */
-function init() {
-  // Set up form submission handler
-  form.addEventListener('submit', handleSubmit);
-  
-  // Add field validation listeners
-  addFieldListeners();
-  
-  // Add event listeners to "Enquire Now" buttons (flower card buttons)
-  const enquireButtons = document.querySelectorAll('.enquire-btn');
-  enquireButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      const variety = button.dataset.variety;
-      if (variety) {
-        handleEnquireNow(variety);
-      }
-    });
-  });
-  
-  // Add event listeners to "Request Quote" buttons (new product card buttons)
-  const requestQuoteButtons = document.querySelectorAll('.btn-request-quote');
-  requestQuoteButtons.forEach(button => {
-    button.addEventListener('click', (e) => {
-      e.preventDefault();
-      const variety = button.dataset.variety;
-      if (variety) {
-        handleEnquireNow(variety);
-      }
-    });
-  });
-}
-
-// Initialize when DOM is ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', init);
-} else {
-  init();
-}
-
-/**
- * Validate email format
- * @param {string} email - Email address to validate
- * @returns {boolean} - True if valid email format
- */
-function validateEmail(email) {
-  return EMAIL_REGEX.test(email);
-}
-
-/**
- * Validate phone number format
- * @param {string} phone - Phone number to validate
- * @returns {boolean} - True if valid phone format (digits only, min 7 digits)
- */
-function validatePhone(phone) {
-  return PHONE_REGEX.test(phone);
-}
-
-/**
- * Validate required field is not empty
- * @param {string} value - Field value to check
- * @returns {boolean} - True if value is not empty
- */
-function validateRequired(value) {
-  return value && value.trim() !== '' && value !== 'Select a variety' && value !== 'Select type';
-}
-
-/**
- * Create inline error message element
- * @param {string} fieldName - Name of the field
- * @param {string} message - Error message text
- * @returns {HTMLElement} - Error message element
- */
-function createErrorMessage(fieldName, message) {
-  const errorDiv = document.createElement('div');
-  errorDiv.className = 'error-message inline-error';
-  errorDiv.setAttribute('role', 'alert');
-  errorDiv.dataset.field = fieldName;
-  errorDiv.textContent = message;
-  return errorDiv;
-}
-
-/**
- * Remove inline error message for a field
- * @param {string} fieldName - Name of the field
- */
-function removeErrorMessage(fieldName) {
-  const existingError = form.querySelector(`.inline-error[data-field="${fieldName}"]`);
-  if (existingError) {
-    existingError.remove();
-  }
-}
-
-/**
- * Show inline error message for a field
- * @param {string} fieldName - Name of the field
- * @param {string} message - Error message text
- */
-function showInlineError(fieldName, message) {
-  // Remove existing error first
-  removeErrorMessage(fieldName);
-  
-  // Find the input/select element
-  const field = form.elements[fieldName];
-  if (field) {
-    const errorDiv = createErrorMessage(fieldName, message);
-    
-    // Insert error message after the field
-    field.parentNode.insertBefore(errorDiv, field.nextSibling);
-  }
-}
-
-/**
- * Validate a single field
- * @param {HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement} field - Field to validate
- * @returns {boolean} - True if field is valid
- */
-function validateField(field) {
-  const fieldName = field.name;
-  const value = field.value.trim();
-  
-  removeErrorMessage(fieldName);
-  
-  switch (fieldName) {
-    case 'email':
-      if (!validateRequired(value)) {
-        showInlineError(fieldName, 'Email address is required');
-        return false;
-      }
-      if (!validateEmail(value)) {
-        showInlineError(fieldName, 'Please enter a valid email address (e.g., name@example.com)');
-        return false;
-      }
-      break;
-      
-    case 'phone':
-      if (!validateRequired(value)) {
-        showInlineError(fieldName, 'Phone number is required');
-        return false;
-      }
-      if (!validatePhone(value)) {
-        showInlineError(fieldName, 'Phone must be digits only, minimum 7 digits');
-        return false;
-      }
-      break;
-      
-    case 'flowerVariety':
-      if (!validateRequired(value)) {
-        showInlineError(fieldName, 'Please select a flower variety');
-        return false;
-      }
-      break;
-      
-    case 'enquiryType':
-      if (!validateRequired(value)) {
-        showInlineError(fieldName, 'Please select an enquiry type');
-        return false;
-      }
-      break;
-      
-    case 'quantity':
-      if (!validateRequired(value)) {
-        showInlineError(fieldName, 'Quantity is required');
-        return false;
-      }
-      if (parseInt(value) < 1) {
-        showInlineError(fieldName, 'Quantity must be at least 1');
-        return false;
-      }
-      break;
-      
-    case 'fullName':
-    case 'country':
-    case 'message':
-      if (!validateRequired(value)) {
-        showInlineError(fieldName, `${field.previousElementSibling.textContent.replace(' *', '')} is required`);
-        return false;
-      }
-      break;
-      
-    default:
-      if (!validateRequired(value)) {
-        showInlineError(fieldName, 'This field is required');
-        return false;
-      }
-      break;
-  }
-  
-  return true;
-}
-
-/**
- * Validate all form fields
- * @returns {boolean} - True if all fields are valid
- */
-function validateForm() {
-  let isValid = true;
-  
-  // Validate each required field
-  for (const fieldName of REQUIRED_FIELDS) {
-    const field = form.elements[fieldName];
-    if (field) {
-      if (!validateField(field)) {
-        isValid = false;
-      }
+    // STEP 5: Handle response
+    if (data.status === 'success') {
+      // SUCCESS
+      showMessage('success', 'Enquiry sent successfully!\nOur experts will review your requirements and reach out to you soon.');
+      resetForm();
+    } else {
+      // ERROR from backend
+      showMessage('error', "We couldn't send your enquiry right now. Please try again or contact us directly at hn.enterpriseexport@gmail.com.");
     }
-  }
-  
-  // Validate quantityUnit (hidden requirement from form structure)
-  const quantityUnitValue = quantityUnitSelect.value;
-  if (!quantityUnitValue) {
-    showInlineError('quantityUnit', 'Please select a unit');
-    isValid = false;
-  } else {
-    removeErrorMessage('quantityUnit');
-  }
-  
-  return isValid;
-}
-
-/**
- * Clear all inline error messages
- */
-function clearAllErrors() {
-  const errorMessages = form.querySelectorAll('.inline-error');
-  errorMessages.forEach(msg => msg.remove());
-}
-
-/**
- * Clear form fields
- */
-function clearForm() {
-  fullNameInput.value = '';
-  emailInput.value = '';
-  phoneInput.value = '';
-  countryInput.value = '';
-  flowerVarietySelect.value = '';
-  enquiryTypeSelect.value = '';
-  quantityInput.value = '';
-  quantityUnitSelect.value = '';
-  messageTextarea.value = '';
-  
-  clearAllErrors();
-}
-
-/**
- * Show success message
- * @param {string} message - Success message text
- */
-function showSuccess(message) {
-  successMessage.textContent = message;
-  successMessage.className = 'success-message';
-  errorMessage.textContent = '';
-  errorMessage.className = 'error-message';
-}
-
-/**
- * Show error message
- * @param {string} message - Error message text
- */
-function showError(message) {
-  errorMessage.textContent = message;
-  errorMessage.className = 'error-message';
-  successMessage.textContent = '';
-  successMessage.className = 'success-message';
-}
-
-/**
- * Pre-populate flower variety field
- * @param {string} variety - Flower variety name to pre-populate
- */
-function prepopulateFlowerVariety(variety) {
-  flowerVarietySelect.value = variety;
-}
-
-/**
- * Pre-populate message field with flower variety
- * @param {string} variety - Flower variety name to add to message
- */
-function prepopulateMessage(variety) {
-  if (messageTextarea.value === '') {
-    messageTextarea.value = `I would like to enquire about: ${variety}\n\n`;
-  } else if (!messageTextarea.value.includes(variety)) {
-    messageTextarea.value = `I would like to enquire about: ${variety}\n\n${messageTextarea.value}`;
+  } catch (error) {
+    // Network error
+    console.error('Form submission error:', error);
+    showMessage('error', "We couldn't send your enquiry right now. Please try again or contact us directly at hn.enterpriseexport@gmail.com.");
+  } finally {
+    // STEP 6: Re-enable button
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Send Enquiry →';
   }
 }
 
-/**
- * Handle "Enquire Now" button click
- * @param {string} variety - Flower variety name
- */
-function handleEnquireNow(variety) {
-  prepopulateFlowerVariety(variety);
-  prepopulateMessage(variety);
-  
-  // Scroll to form
-  const formSection = document.getElementById('contact');
-  if (formSection) {
-    formSection.scrollIntoView({ behavior: 'smooth' });
-  }
-}
-
-/**
- * Handle form submission
- * @param {Event} event - Submit event
- */
-function handleSubmit(event) {
-  event.preventDefault();
-  
-  // Clear previous messages
-  successMessage.textContent = '';
-  errorMessage.textContent = '';
-  successMessage.className = 'success-message';
-  errorMessage.className = 'error-message';
-  
-  // Validate form
-  if (!validateForm()) {
+// Initialize
+function init() {
+  if (!form) {
+    console.error('Form not found');
     return;
   }
-  
-  // Compose email
-  const to = 'hn.enterpriseexport@gmail.com';
-  const subject = encodeURIComponent('Flower Enquiry from HN Enterprises Website');
-  const body = encodeURIComponent(
-    `Name: ${fullNameInput.value}\n` +
-    `Email: ${emailInput.value}\n` +
-    `Phone: ${phoneInput.value}\n` +
-    `Country: ${countryInput.value}\n` +
-    `Flower Variety: ${flowerVarietySelect.value}\n` +
-    `Enquiry Type: ${enquiryTypeSelect.value}\n` +
-    `Quantity: ${quantityInput.value} ${quantityUnitSelect.value}\n` +
-    `Message: ${messageTextarea.value}`
-  );
-  
-  // Compose mailto link
-  const mailtoLink = `mailto:${to}?subject=${subject}&body=${body}`;
-  
-  try {
-    // Attempt to open email client
-    window.location.href = mailtoLink;
-    
-    // Show success message
-    showSuccess('Thank you! Your enquiry has been sent. We will respond shortly.');
-    
-    // Clear form after successful submission
-    clearForm();
-    
-    // Note: If email client fails to open, the user will see the error
-    // The mailto protocol doesn't provide a reliable way to detect failure
-  } catch (e) {
-    // Fallback error handling
-    showError('There was an error sending your enquiry. Please contact us directly at hn.enterpriseexport@gmail.com');
-    console.error('Email submission error:', e);
-  }
-}
 
-/**
- * Add event listeners for field validation
- */
-function addFieldListeners() {
-  // Validate on blur (when field loses focus)
-  [
-    fullNameInput, emailInput, phoneInput, countryInput,
-    flowerVarietySelect, enquiryTypeSelect, quantityInput, messageTextarea
-  ].forEach(field => {
-    field.addEventListener('blur', () => validateField(field));
-  });
-  
-  // Clear error messages on input
-  [
-    fullNameInput, emailInput, phoneInput, countryInput,
-    messageTextarea
-  ].forEach(field => {
-    field.addEventListener('input', () => {
-      removeErrorMessage(field.name);
-    });
-  });
-  
-  // Clear error messages on selection change
-  [flowerVarietySelect, enquiryTypeSelect, quantityUnitSelect].forEach(select => {
-    select.addEventListener('change', () => {
-      removeErrorMessage(select.name);
-    });
-  });
-}
-
-/**
- * Initialize form validation
- */
-function init() {
-  // Set up form submission handler
+  // Attach submit handler
   form.addEventListener('submit', handleSubmit);
-  
-  // Add field validation listeners
-  addFieldListeners();
-  
-  // Add event listeners to "Enquire Now" buttons (flower card buttons)
-  const enquireButtons = document.querySelectorAll('.enquire-btn');
+
+  // Flower variety change handler
+  flowerVarietySelect.addEventListener('change', handleFlowerVarietyChange);
+
+  // Enquire Now button handlers
+  const enquireButtons = document.querySelectorAll('.btn-request-quote');
   enquireButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      const variety = button.dataset.variety;
-      if (variety) {
-        handleEnquireNow(variety);
-      }
-    });
-  });
-  
-  // Add event listeners to "Request Quote" buttons (new product card buttons)
-  const requestQuoteButtons = document.querySelectorAll('.btn-request-quote');
-  requestQuoteButtons.forEach(button => {
     button.addEventListener('click', (e) => {
       e.preventDefault();
       const variety = button.dataset.variety;
       if (variety) {
-        handleEnquireNow(variety);
+        flowerVarietySelect.value = variety;
+        handleFlowerVarietyChange();
+        const contactSection = document.getElementById('contact');
+        if (contactSection) {
+          contactSection.scrollIntoView({ behavior: 'smooth' });
+        }
       }
     });
   });
 }
 
-// Initialize when DOM is ready
+// Start when DOM ready
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', init);
 } else {
