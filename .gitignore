@@ -9,3 +9,5 @@ build/
 .vscode/settings.json
 test-*.js
 enquiries_*.txt
+google-credentials.json
+gmail-token.json
