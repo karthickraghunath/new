@@ -3,57 +3,136 @@
 
 /* Mobile: < 768px */
 @media (max-width: 767.98px) {
-    /* NAVBAR - Reduce height from 70px to ~60px */
+    /* NAVBAR - Professional mobile header */
     .navbar {
-        height: 60px;
+        height: 72px;
     }
 
     .nav-container {
-        height: 60px;
-        padding: 8px var(--container-padding);
+        height: 72px;
+        padding: 8px 16px;
     }
 
-    /* LOGO - Reduce 20-25% */
+    /* LOGO - Proper sizing */
     .brand-logo {
-        height: 32px;  /* was 40px - reduced by 20% */
+        height: 48px;
         width: auto;
     }
 
     .brand-wordmark {
-        height: 28px;  /* was 35px - reduced by 20% */
+        height: 40px;
         width: auto;
+        max-width: 220px;
     }
 
     .brand a {
-        gap: 6px;  /* reduce gap between logo and wordmark */
+        gap: 8px;
+        height: 100%;
+        align-items: center;
     }
 
-    /* HAMBURGER MENU - Adjust for smaller navbar */
-    .nav-wrapper {
-        top: 60px;  /* align with new navbar height */
-        max-height: calc(100vh - 60px);
-    }
-
+    /* HAMBURGER MENU - Show on mobile */
     .hamburger {
-        min-width: 36px;
-        min-height: 32px;
+        display: flex !important;
+        flex-direction: column;
+        min-width: 40px;
+        min-height: 40px;
+        gap: 5px;
+        padding: 0;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
     }
 
     .hamburger span {
         width: 24px;
         height: 3px;
+        background-color: #ffffff;
+        border-radius: 2px;
+        transition: all 0.3s ease;
     }
 
-    /* HERO SECTION - Fix layout and positioning */
+    .hamburger.active span:first-child {
+        transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active span:last-child {
+        transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    /* MOBILE MENU - Slide from top */
+    .nav-wrapper {
+        position: fixed;
+        top: 72px;
+        left: 0;
+        right: 0;
+        background-color: #1a2332;
+        flex-direction: column;
+        padding: 16px 0;
+        gap: 0;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        transform: translateY(-100%);
+        transition: transform 0.3s ease;
+        max-height: calc(100vh - 72px);
+        overflow-y: auto;
+        width: 100%;
+        justify-content: flex-start;
+        display: flex !important;
+        z-index: 999;
+    }
+
+    .nav-wrapper.active {
+        transform: translateY(0);
+    }
+
+    .nav-links {
+        flex-direction: column;
+        width: 100%;
+        padding: 0;
+        gap: 0;
+        display: flex !important;
+    }
+
+    .nav-links li {
+        width: 100%;
+        border-bottom: 1px solid rgba(212, 165, 116, 0.1);
+    }
+
+    .nav-links a {
+        display: block;
+        padding: 14px 20px;
+        width: 100%;
+        color: #e8e8e8;
+        font-size: 1rem;
+        transition: all 0.2s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+        color: #d4a574;
+        background-color: rgba(212, 165, 116, 0.1);
+    }
+
+    /* Hide "Get Wholesale Quote" button in mobile menu */
+    .btn-nav-cta {
+        display: none;
+    }
+
+    /* HERO SECTION - Larger, better proportions */
     .hero {
         width: 100%;
         max-width: none;
         margin: 0;
-        margin-top: 60px;  /* adjust for new navbar height */
+        margin-top: 72px;
         padding: 0;
         display: block;
-        overflow: hidden;
-        min-height: 320px;  /* reduce hero height on mobile */
+        overflow: visible;
+        min-height: 360px;  /* increased from 320px */
+        position: relative;
     }
 
     .hero-image {
@@ -63,51 +142,63 @@
         object-fit: cover;
     }
 
-    /* HERO CONTENT - Center and position better */
+    /* HERO CONTENT - Overlay on image */
     .hero-content {
         position: absolute;
         left: 0;
         right: 0;
-        top: 50%;
-        transform: translateY(-50%);
+        bottom: -80px;  /* Buttons start below image */
         width: 100%;
         max-width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
         text-align: center;
-        z-index: 10;
-        pointer-events: none;
+        z-index: 20;
+        pointer-events: auto;
         padding: 0 16px;
         box-sizing: border-box;
     }
 
-    /* HERO TEXT - Make it readable */
+    /* HERO TEXT - Readable on image */
     .hero-description {
-        margin-bottom: 16px;
+        margin-bottom: 20px;
         pointer-events: auto;
         max-width: 100%;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        display: none;  /* Hide text to avoid clutter */
     }
 
-    /* HERO BUTTON - Position below text, not overlapping */
+    /* HERO BUTTONS - Equal width, centered, below image */
     .hero-actions {
         display: flex;
         flex-direction: column;
         gap: 12px;
         margin: 0;
-        margin-top: 12px;
         pointer-events: auto;
         align-items: center;
         width: 100%;
+        padding: 20px 0;
     }
 
     .hero-btn {
         width: 90%;
-        max-width: 260px;
-        padding: 12px 24px;
-        font-size: 0.9rem;
-        margin: 0;
-        position: relative;
+        max-width: 320px;
+        padding: 14px 24px;
+        font-size: 0.95rem;
+        margin: 0 auto;
+        border-radius: 4px;
+        text-align: center;
+    }
+
+    .hero-btn-primary {
+        background-color: #0066cc;
+        color: #ffffff;
+    }
+
+    .hero-btn-secondary {
+        background-color: #4a5568;
+        color: #ffffff;
     }
 
     /* Footer responsive - mobile */
@@ -303,20 +394,20 @@
         width: 100%;
         max-width: none;
         margin: 0;
-        padding: 50px 20px;
+        padding: 40px 20px;
         box-sizing: border-box;
     }
 
     /* Catalog header - mobile */
     .catalog-header {
         padding: 0;
-        margin-bottom: var(--spacing-xl);
+        margin-bottom: 20px;  /* reduced from spacing-xl (~48px) */
     }
 
     .flower-catalog h2 {
         font-size: 1.6rem;  /* reduced from 1.8rem */
-        margin-bottom: 8px;
-        padding-bottom: 12px;
+        margin-bottom: 4px;  /* reduced from 8px */
+        padding-bottom: 8px;  /* reduced from 12px */
         line-height: 1.3;
     }
 
@@ -327,6 +418,7 @@
 
     .catalog-subtitle {
         font-size: 0.85rem;  /* reduced from 0.9rem */
+        margin-bottom: 0;
     }
 
     /* Grid Column Adjustments - 1 column mobile */
