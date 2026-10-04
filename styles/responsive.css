@@ -3,6 +3,113 @@
 
 /* Mobile: < 768px */
 @media (max-width: 767.98px) {
+    /* NAVBAR - Reduce height from 70px to ~60px */
+    .navbar {
+        height: 60px;
+    }
+
+    .nav-container {
+        height: 60px;
+        padding: 8px var(--container-padding);
+    }
+
+    /* LOGO - Reduce 20-25% */
+    .brand-logo {
+        height: 32px;  /* was 40px - reduced by 20% */
+        width: auto;
+    }
+
+    .brand-wordmark {
+        height: 28px;  /* was 35px - reduced by 20% */
+        width: auto;
+    }
+
+    .brand a {
+        gap: 6px;  /* reduce gap between logo and wordmark */
+    }
+
+    /* HAMBURGER MENU - Adjust for smaller navbar */
+    .nav-wrapper {
+        top: 60px;  /* align with new navbar height */
+        max-height: calc(100vh - 60px);
+    }
+
+    .hamburger {
+        min-width: 36px;
+        min-height: 32px;
+    }
+
+    .hamburger span {
+        width: 24px;
+        height: 3px;
+    }
+
+    /* HERO SECTION - Fix layout and positioning */
+    .hero {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        margin-top: 60px;  /* adjust for new navbar height */
+        padding: 0;
+        display: block;
+        overflow: hidden;
+        min-height: 320px;  /* reduce hero height on mobile */
+    }
+
+    .hero-image {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+    }
+
+    /* HERO CONTENT - Center and position better */
+    .hero-content {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        z-index: 10;
+        pointer-events: none;
+        padding: 0 16px;
+        box-sizing: border-box;
+    }
+
+    /* HERO TEXT - Make it readable */
+    .hero-description {
+        margin-bottom: 16px;
+        pointer-events: auto;
+        max-width: 100%;
+    }
+
+    /* HERO BUTTON - Position below text, not overlapping */
+    .hero-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin: 0;
+        margin-top: 12px;
+        pointer-events: auto;
+        align-items: center;
+        width: 100%;
+    }
+
+    .hero-btn {
+        width: 90%;
+        max-width: 260px;
+        padding: 12px 24px;
+        font-size: 0.9rem;
+        margin: 0;
+        position: relative;
+    }
+
     /* Footer responsive - mobile */
     .footer-main {
         padding: 10px 5%;
@@ -207,18 +314,19 @@
     }
 
     .flower-catalog h2 {
-        font-size: 1.8rem;
+        font-size: 1.6rem;  /* reduced from 1.8rem */
         margin-bottom: 8px;
         padding-bottom: 12px;
+        line-height: 1.3;
     }
 
     .flower-catalog h2::after {
-        width: 60px;
+        width: 50px;  /* reduced from 60px */
         height: 2px;
     }
 
     .catalog-subtitle {
-        font-size: 0.9rem;
+        font-size: 0.85rem;  /* reduced from 0.9rem */
     }
 
     /* Grid Column Adjustments - 1 column mobile */
