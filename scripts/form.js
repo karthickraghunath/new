@@ -16,8 +16,6 @@ const quantityUnitSelect = document.getElementById('quantityUnit');
 const messageTextarea = document.getElementById('message');
 const successMessage = document.getElementById('successMessage');
 const errorMessage = document.getElementById('errorMessage');
-const otherFlowerRow = document.getElementById('otherFlowerRow');
-const otherFlowerType = document.getElementById('otherFlowerType');
 const submitBtn = form ? form.querySelector('.btn-submit-enquiry') : null;
 
 // Validation Functions
@@ -126,15 +124,7 @@ function validateForm() {
     isValid = false;
   }
 
-  // 6. Other Flower Type (if Other selected)
-  if (flowerVarietySelect.value === 'Other') {
-    if (!isNotEmpty(otherFlowerType.value)) {
-      showFieldError('otherFlowerType', 'Enter Flower Type is required');
-      isValid = false;
-    }
-  }
-
-  // 7. Enquiry Type
+  // 6. Enquiry Type
   if (!isNotEmpty(enquiryTypeSelect.value)) {
     showFieldError('enquiryType', 'Enquiry Type is required');
     isValid = false;
@@ -168,20 +158,12 @@ function validateForm() {
 function resetForm() {
   form.reset();
   clearAllErrors();
-  otherFlowerRow.style.display = 'none';
   clearMessage();
 }
 
-// Handle flower variety change
+// Handle flower variety change (for "Request Quote" button clicks)
 function handleFlowerVarietyChange() {
-  if (flowerVarietySelect.value === 'Other') {
-    otherFlowerRow.style.display = 'block';
-    otherFlowerType.required = true;
-  } else {
-    otherFlowerRow.style.display = 'none';
-    otherFlowerType.required = false;
-    otherFlowerType.value = '';
-  }
+  // No special handling needed anymore since all flowers are listed
 }
 
 // Main submit handler
@@ -202,17 +184,12 @@ async function handleSubmit(event) {
   submitBtn.textContent = 'Sending...';
 
   // STEP 3: Prepare data
-  let flowerVarietyStr = flowerVarietySelect.value;
-  if (flowerVarietyStr === 'Other' && otherFlowerType.value) {
-    flowerVarietyStr = `Other: ${otherFlowerType.value}`;
-  }
-
   const formDataObj = {
     fullName: fullNameInput.value,
     email: emailInput.value,
     phone: phoneInput.value,
     country: countryInput.value,
-    flowerVariety: flowerVarietyStr,
+    flowerVariety: flowerVarietySelect.value,
     enquiryType: enquiryTypeSelect.value,
     quantity: quantityInput.value,
     quantityUnit: quantityUnitSelect.value,
