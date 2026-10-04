@@ -33,26 +33,21 @@
         right: 0;
         width: 100% !important;
         background-color: #1a2332;
-        flex-direction: column;
-        padding: 0;
-        gap: 0;
-        list-style: none;
+        flex-direction: column !important;
+        padding: 0 !important;
+        gap: 0 !important;
+        list-style: none !important;
         z-index: 999;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        max-height: calc(100vh - 72px);
-        overflow-y: auto;
+        max-height: auto;
+        overflow-y: visible;
+        margin: 0 !important;
+        border: none;
     }
 
-    /* Show nav links when hamburger is active */
-    .hamburger.active ~ .nav-links,
+    /* Show nav links when nav-wrapper has active class */
     .nav-wrapper.active .nav-links {
         display: flex !important;
-    }
-
-    /* Alternative: Show menu when nav-wrapper has active class */
-    .nav-wrapper.active .nav-links {
-        display: flex !important;
-        animation: slideDown 0.3s ease;
     }
 
     @keyframes slideDown {
@@ -185,7 +180,7 @@
         position: absolute;
         left: 0;
         right: 0;
-        bottom: -80px;  /* Buttons start below image */
+        bottom: -70px;  /* Buttons positioned below hero, not inside */
         width: 100%;
         max-width: 100%;
         display: flex;
@@ -338,7 +333,7 @@
         width: 100%;
         max-width: none;
         margin: 0;
-        padding: 40px 20px;
+        padding: 60px 20px 40px;  /* added top padding for button space */
         box-sizing: border-box;
     }
 
