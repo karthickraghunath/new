@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mobile Preview</title>
+<style>
+  body { margin: 0; padding: 10px; background: #f0f0f0; font-family: Arial; }
+  .phone { 
+    width: 390px; 
+    height: 844px; 
+    margin: 20px auto;
+    border: 3px solid #333;
+    border-radius: 40px;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    background: white;
+  }
+  .phone-frame {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+  }
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+  .info {
+    text-align: center;
+    color: #666;
+    margin-top: 20px;
+    font-size: 14px;
+  }
+</style>
+</head>
+<body>
+<h1 style="text-align: center;">Mobile Preview (iPhone 12)</h1>
+<div class="phone">
+  <div class="phone-frame">
+    <iframe src="http://localhost:8000"></iframe>
+  </div>
+</div>
+<div class="info">
+  <p>🔍 <strong>To inspect:</strong> Right-click → Inspect → Ctrl+Shift+M → Select iPhone 12</p>
+</div>
+</body>
+</html>
